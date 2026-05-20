@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Estate Master — Where Property Meets Resolution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00B67A;
+    --green-dark: #008F5E;
+    --green-light: #E8F8F2;
+    --green-mid: #C2EFD9;
+    --violet: #7C3AED;
+    --violet-dark: #5B21B6;
+    --violet-light: #F3EEFF;
+    --violet-mid: #DDD6FE;
+    --black: #0A0A0A;
+    --gray-dark: #1C1C1C;
+    --gray: #333333;
+    --gray-mid: #666666;
+    --gray-light: #F5F5F5;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,182,122,0.2);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column; line-height: 1;
+  }
+  .nav-logo span:first-child {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300; font-size: 0.65rem; letter-spacing: 0.25em;
+    color: var(--gray-mid); text-transform: uppercase;
+  }
+  .nav-logo span:last-child {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 0.1em; color: var(--green);
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray-mid);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--green); color: var(--black);
+    padding: 0.6rem 1.4rem; border-radius: 2px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 50%, rgba(124,58,237,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(0,182,122,0.08) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(0,182,122,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,182,122,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-left { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 24px; height: 1px; background: var(--green);
+  }
+
+  .hero-title {
+    line-height: 0.92;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title .line1 {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300; font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: rgba(255,255,255,0.5); letter-spacing: -0.01em;
+  }
+  .hero-title .line2 {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 7.5rem);
+    color: var(--white); letter-spacing: 0.03em;
+    text-shadow: 0 0 80px rgba(0,182,122,0.25);
+  }
+  .hero-title .line2 span { color: var(--green); }
+
+  .hero-tagline {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.55);
+    line-height: 1.7; max-width: 460px; margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--green); color: var(--black);
+    padding: 0.875rem 2rem; border-radius: 2px;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+    box-shadow: 0 0 30px rgba(0,182,122,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--green-dark);
+    box-shadow: 0 0 50px rgba(0,182,122,0.5);
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    padding: 0.875rem 2rem; border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative; z-index: 1;
+    display: flex; justify-content: flex-end; align-items: center;
+  }
+  .hero-card-stack {
+    position: relative; width: 340px; height: 420px;
+  }
+  .hero-card {
+    position: absolute;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.75rem;
+    backdrop-filter: blur(4px);
+  }
+  .hero-card.card-1 {
+    top: 0; left: 20px; right: 0;
+    border-color: rgba(0,182,122,0.3);
+    background: linear-gradient(135deg, rgba(0,182,122,0.06), rgba(0,182,122,0.02));
+    animation: float1 4s ease-in-out infinite;
+  }
+  .hero-card.card-2 {
+    top: 120px; left: 0; right: 20px;
+    border-color: rgba(124,58,237,0.3);
+    background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(124,58,237,0.02));
+    animation: float2 4s ease-in-out infinite 0.5s;
+  }
+  .hero-card.card-3 {
+    top: 240px; left: 30px; right: 10px;
+    border-color: rgba(255,255,255,0.1);
+    animation: float3 4s ease-in-out infinite 1s;
+  }
+  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+  .card-label {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .card-1 .card-label { color: var(--green); }
+  .card-2 .card-label { color: var(--violet); }
+  .card-3 .card-label { color: rgba(255,255,255,0.4); }
+  .card-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; letter-spacing: 0.05em; line-height: 1;
+  }
+  .card-1 .card-value { color: var(--white); }
+  .card-2 .card-value { color: var(--violet-mid); }
+  .card-desc {
+    font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.35rem;
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDER ── */
+  .ticker {
+    background: var(--green); padding: 0.7rem 0; overflow: hidden;
+    display: flex;
+  }
+  .ticker-track {
+    display: flex; gap: 0; white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--black);
+    padding: 0 2rem;
+  }
+  .ticker-dot { color: rgba(0,0,0,0.3); }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 3rem; }
+  .section-eyebrow {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-eyebrow::after {
+    content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--green);
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15; color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--green); }
+  .section-sub {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.5);
+    line-height: 1.8; max-width: 560px;
+  }
+
+  /* ── SERVICES ── */
+  .services { background: var(--gray-dark); }
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: end; margin-bottom: 4rem;
+  }
+  .tier-legend {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    justify-content: flex-end;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.72rem; color: rgba(255,255,255,0.4);
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--gray-dark);
+    padding: 1.75rem 1.5rem;
+    transition: background 0.25s;
+    cursor: default; position: relative;
+  }
+  .service-card:hover { background: rgba(255,255,255,0.04); }
+
+  .service-card.ai-tier {
+    background: rgba(124,58,237,0.07);
+  }
+  .service-card.ai-tier:hover { background: rgba(124,58,237,0.12); }
+  .service-card.ai-tier::before {
+    content: 'AI';
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em;
+    color: var(--violet); background: rgba(124,58,237,0.15);
+    padding: 0.2rem 0.45rem; border-radius: 2px;
+  }
+  .service-card.court-tier { background: rgba(0,0,0,0.3); }
+  .service-card.court-tier::before {
+    content: 'COURT';
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.05);
+    padding: 0.2rem 0.45rem; border-radius: 2px;
+  }
+
+  .tier-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; line-height: 1; margin-bottom: 0.5rem;
+    opacity: 0.15;
+  }
+  .service-card.ai-tier .tier-num { color: var(--violet); opacity: 0.4; }
+  .service-card.free-tier .tier-num { color: var(--green); opacity: 0.5; }
+
+  .service-name {
+    font-size: 0.78rem; font-weight: 600; line-height: 1.35;
+    color: var(--white); margin-bottom: 0.75rem;
+  }
+  .service-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+  .service-card.free-tier .service-price { color: var(--green); }
+  .service-card.ai-tier .service-price { color: var(--violet-mid); }
+  .service-card .service-price { color: rgba(255,255,255,0.7); }
+
+  .service-delivery {
+    font-size: 0.65rem; color: rgba(255,255,255,0.3);
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .service-card.ai-tier .service-delivery { color: rgba(124,58,237,0.6); }
+
+  /* second row */
+  .service-grid-row2 {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 1px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-top: none; border-radius: 0 0 8px 8px; overflow: hidden;
+  }
+
+  /* ── ECOSYSTEM ── */
+  .ecosystem { background: var(--black); }
+  .ecosystem-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .ecosystem-visual {
+    position: relative; height: 400px;
+  }
+  .eco-node {
+    position: absolute; border-radius: 12px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .eco-node:hover { transform: scale(1.04); }
+  .eco-node.center {
+    width: 160px; height: 160px;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: var(--green); z-index: 2;
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(0,182,122,0.4);
+  }
+  .eco-node.center:hover { transform: translate(-50%, -50%) scale(1.05); }
+  .eco-node.center .eco-label { color: var(--black); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .eco-node.center .eco-name { color: var(--black); font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; }
+
+  .eco-node.sobi-realty {
+    width: 130px; height: 100px;
+    top: 5%; left: 0;
+    background: rgba(0,182,122,0.08); border: 1px solid rgba(0,182,122,0.3);
+  }
+  .eco-node.sobi-title {
+    width: 130px; height: 100px;
+    bottom: 5%; left: 0;
+    background: rgba(0,182,122,0.08); border: 1px solid rgba(0,182,122,0.3);
+  }
+  .eco-node.fmlg {
+    width: 130px; height: 100px;
+    top: 5%; right: 0;
+    background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.3);
+  }
+  .eco-node.ai-draft {
+    width: 130px; height: 100px;
+    bottom: 5%; right: 0;
+    background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.3);
+  }
+  .eco-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .eco-node.sobi-realty .eco-label,
+  .eco-node.sobi-title .eco-label { color: var(--green); }
+  .eco-node.fmlg .eco-label,
+  .eco-node.ai-draft .eco-label { color: var(--violet); }
+  .eco-name { font-size: 0.8rem; font-weight: 600; color: var(--white); line-height: 1.3; }
+
+  /* connector lines */
+  .eco-connector {
+    position: absolute; background: linear-gradient(90deg, rgba(0,182,122,0.4), rgba(0,182,122,0.1));
+    height: 1px; transform-origin: left center;
+  }
+
+  .eco-text h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem; color: var(--white); margin-bottom: 1rem;
+  }
+  .eco-text h3 em { color: var(--green); font-style: italic; }
+  .eco-text p { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 1.5rem; }
+  .eco-pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 0.9rem; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 600; margin: 0.25rem;
+  }
+  .eco-pill.green { background: rgba(0,182,122,0.12); color: var(--green); border: 1px solid rgba(0,182,122,0.2); }
+  .eco-pill.violet { background: rgba(124,58,237,0.12); color: var(--violet-mid); border: 1px solid rgba(124,58,237,0.2); }
+
+  /* ── PARTNERS ── */
+  .partners { background: var(--gray-dark); }
+  .partners-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .partner-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 2rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .partner-card:hover { border-color: rgba(0,182,122,0.3); transform: translateY(-4px); }
+  .partner-initial {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+    letter-spacing: 0.05em; margin-bottom: 1.25rem;
+  }
+  .partner-card:nth-child(1) .partner-initial { background: rgba(0,182,122,0.15); color: var(--green); border: 1px solid rgba(0,182,122,0.3); }
+  .partner-card:nth-child(2) .partner-initial { background: rgba(0,182,122,0.12); color: var(--green); border: 1px solid rgba(0,182,122,0.25); }
+  .partner-card:nth-child(3) .partner-initial { background: rgba(124,58,237,0.15); color: var(--violet-mid); border: 1px solid rgba(124,58,237,0.3); }
+
+  .partner-name {
+    font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.25rem;
+  }
+  .partner-role {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 1rem;
+  }
+  .partner-card:nth-child(3) .partner-role { color: var(--violet-mid); }
+  .partner-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .partner-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .partner-tag {
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px;
+  }
+  .partner-card:nth-child(1) .partner-tag,
+  .partner-card:nth-child(2) .partner-tag { background: rgba(0,182,122,0.1); color: var(--green); }
+  .partner-card:nth-child(3) .partner-tag { background: rgba(124,58,237,0.1); color: var(--violet-mid); }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    background: var(--green); padding: 5rem 3rem;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 3rem;
+  }
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem); color: var(--black);
+    letter-spacing: 0.03em; line-height: 1;
+  }
+  .cta-band p { font-size: 0.9rem; color: rgba(0,0,0,0.55); margin-top: 0.5rem; }
+  .btn-dark {
+    background: var(--black); color: var(--white);
+    padding: 1rem 2.5rem; border-radius: 2px;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; text-decoration: none; white-space: nowrap;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-dark:hover { background: var(--gray-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 2rem;
+  }
+  .footer-brand .logo-top { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-mid); }
+  .footer-brand .logo-bot { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.08em; color: var(--green); }
+  .footer-brand .tagline { font-size: 0.72rem; color: rgba(255,255,255,0.2); margin-top: 0.25rem; }
+  .footer-right { text-align: right; }
+  .footer-right p { font-size: 0.72rem; color: rgba(255,255,255,0.2); line-height: 1.8; }
+  .footer-right .partners-list { color: rgba(255,255,255,0.4); margin-top: 0.25rem; }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* ── GATE TIMELINE ── */
+  .timeline { background: var(--black); }
+  .timeline-track {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 0; margin-top: 3rem; position: relative;
+  }
+  .timeline-track::before {
+    content: ''; position: absolute; top: 28px; left: 5%; right: 5%;
+    height: 1px; background: linear-gradient(90deg, var(--green), var(--violet));
+  }
+  .gate-item { text-align: center; padding: 0 0.75rem; }
+  .gate-dot {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem; position: relative; z-index: 1;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.05em;
+    transition: transform 0.2s;
+  }
+  .gate-dot:hover { transform: scale(1.1); }
+  .gate-item:nth-child(1) .gate-dot { background: var(--green); color: var(--black); box-shadow: 0 0 20px rgba(0,182,122,0.5); }
+  .gate-item:nth-child(2) .gate-dot { background: rgba(0,182,122,0.15); color: var(--green); border: 1px solid rgba(0,182,122,0.4); }
+  .gate-item:nth-child(3) .gate-dot { background: rgba(124,58,237,0.15); color: var(--violet-mid); border: 1px solid rgba(124,58,237,0.4); }
+  .gate-item:nth-child(4) .gate-dot,
+  .gate-item:nth-child(5) .gate-dot,
+  .gate-item:nth-child(6) .gate-dot { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.08); }
+
+  .gate-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.35rem; }
+  .gate-item:nth-child(1) .gate-label { color: var(--green); }
+  .gate-item:nth-child(2) .gate-label, .gate-item:nth-child(3) .gate-label { color: rgba(255,255,255,0.4); }
+  .gate-name { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.6); line-height: 1.4; }
+  .gate-time { font-size: 0.62rem; color: rgba(255,255,255,0.25); margin-top: 0.25rem; }
+
+  /* violet accent rule */
+  .accent-rule {
+    display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+  }
+  .accent-rule-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--violet), transparent); }
+  .accent-rule-text { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); white-space: nowrap; }
+
+  /* responsive */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-right { display: none; }
+    .service-grid, .service-grid-row2 { grid-template-columns: repeat(3, 1fr); }
+    .ecosystem-inner, .services-header { grid-template-columns: 1fr; }
+    .partners-grid { grid-template-columns: 1fr 1fr; }
+    .timeline-track { grid-template-columns: repeat(3, 1fr); }
+    .timeline-track::before { display: none; }
+    .cta-band { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .footer-right { text-align: left; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span>Real Estate</span>
+    <span>Master</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#partners">Partners</a></li>
+  </ul>
+  <a href="#services" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-in">Florida's Premier Property Resolution Platform</div>
+    <h1 class="hero-title fade-in fade-in-delay-1">
+      <span class="line1">Real Estate</span>
+      <span class="line2">MAS<span>TER</span></span>
+    </h1>
+    <p class="hero-tagline fade-in fade-in-delay-2">
+      Where property meets resolution. From instant automated CMAs to court-appointed special master services — the full spectrum of real estate assessment, valuation, and AI-powered drafting in one platform.
+    </p>
+    <div class="hero-actions fade-in fade-in-delay-3">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#ecosystem" class="btn-secondary">Our Ecosystem →</a>
+    </div>
+  </div>
+  <div class="hero-right fade-in fade-in-delay-2">
+    <div class="hero-card-stack">
+      <div class="hero-card card-1">
+        <div class="card-label">Free CMA</div>
+        <div class="card-value">Instant</div>
+        <div class="card-desc">Automated comparative market analysis. No cost, no friction.</div>
+      </div>
+      <div class="hero-card card-2">
+        <div class="card-label">AI Drafting</div>
+        <div class="card-value">$49–$99</div>
+        <div class="card-desc">P&S agreements, addenda, MSA clauses — AI-generated instantly.</div>
+      </div>
+      <div class="hero-card card-3">
+        <div class="card-label">Special Master</div>
+        <div class="card-value">Court-Ready</div>
+        <div class="card-desc">Court-appointed authority for property valuation and disposition.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Market Analysis <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Equity Assessment <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Document Drafting <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">MSA Real Estate Clauses <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Expert Testimony <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Neutral Evaluator <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Special Master Appointment <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sobi Law & Title <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sobi Realty <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Market Analysis <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Equity Assessment <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Document Drafting <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">MSA Real Estate Clauses <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Expert Testimony <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Neutral Evaluator <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Special Master Appointment <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sobi Law & Title <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sobi Realty <span class="ticker-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow fade-in">Full Service Stack</div>
+      <h2 class="section-title fade-in fade-in-delay-1">Ten tiers.<br><em>One platform.</em></h2>
+      <p class="section-sub fade-in fade-in-delay-2">From a free CMA to court-appointed special master — every real estate assessment need, served at the right tier, at the right price.</p>
+    </div>
+    <div class="tier-legend fade-in fade-in-delay-2">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Free / Standard Tier</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--violet)"></div> AI-Powered Drafting</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.2)"></div> Court Services (Gated)</div>
+    </div>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="service-grid fade-in">
+    <div class="service-card free-tier">
+      <div class="tier-num">0</div>
+      <div class="service-name">Basic CMA</div>
+      <div class="service-price">FREE</div>
+      <div class="service-delivery">Instant · Automated</div>
+    </div>
+    <div class="service-card">
+      <div class="tier-num">1</div>
+      <div class="service-name">Basic Equity Evaluation</div>
+      <div class="service-price">$25–$75</div>
+      <div class="service-delivery">Instant · Automated</div>
+    </div>
+    <div class="service-card">
+      <div class="tier-num">2</div>
+      <div class="service-name">Professional Equity Assessment</div>
+      <div class="service-price">$250–$500</div>
+      <div class="service-delivery">2–5 Business Days</div>
+    </div>
+    <div class="service-card ai-tier">
+      <div class="tier-num">3</div>
+      <div class="service-name">AI Drafting — Addenda & Amendments</div>
+      <div class="service-price">$49</div>
+      <div class="service-delivery">Instant · AI</div>
+    </div>
+    <div class="service-card ai-tier">
+      <div class="tier-num">4</div>
+      <div class="service-name">AI Drafting — Purchase & Sale</div>
+      <div class="service-price">$99</div>
+      <div class="service-delivery">Instant · AI</div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="service-grid-row2 fade-in fade-in-delay-1" style="margin-top:1px;">
+    <div class="service-card ai-tier">
+      <div class="tier-num">5</div>
+      <div class="service-name">AI Drafting — MSA Real Estate Clauses</div>
+      <div class="service-price">$99</div>
+      <div class="service-delivery">Instant · AI</div>
+    </div>
+    <div class="service-card ai-tier">
+      <div class="tier-num">6</div>
+      <div class="service-name">AI Options & Consequences Guide</div>
+      <div class="service-price">$49</div>
+      <div class="service-delivery">Instant · AI</div>
+    </div>
+    <div class="service-card court-tier">
+      <div class="tier-num">7</div>
+      <div class="service-name">Expert Testimony</div>
+      <div class="service-price" style="color:rgba(255,255,255,0.3)">TBD</div>
+      <div class="service-delivery">Scheduled</div>
+    </div>
+    <div class="service-card court-tier">
+      <div class="tier-num">8</div>
+      <div class="service-name">Neutral Evaluator</div>
+      <div class="service-price" style="color:rgba(255,255,255,0.3)">TBD</div>
+      <div class="service-delivery">5–10 Business Days</div>
+    </div>
+    <div class="service-card court-tier">
+      <div class="tier-num">9</div>
+      <div class="service-name">Real Estate Special Master</div>
+      <div class="service-price" style="color:rgba(255,255,255,0.3)">TBD</div>
+      <div class="service-delivery">Court-Scheduled</div>
+    </div>
+  </div>
+
+  <div class="accent-rule fade-in" style="margin-top:3rem;">
+    <div class="accent-rule-line"></div>
+    <div class="accent-rule-text">Tiers 0–6 launch Day 1 · No court approval required</div>
+    <div class="accent-rule-line" style="background:linear-gradient(90deg,transparent,var(--violet))"></div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="ecosystem-inner">
+    <div class="eco-visual fade-in">
+      <div class="eco-node center">
+        <div class="eco-label">Platform</div>
+        <div class="eco-name">Real Estate Master</div>
+      </div>
+      <div class="eco-node sobi-realty">
+        <div class="eco-label">Brokerage</div>
+        <div class="eco-name">Sobi Realty</div>
+      </div>
+      <div class="eco-node sobi-title">
+        <div class="eco-label">Title & Law</div>
+        <div class="eco-name">Sobi Law & Title</div>
+      </div>
+      <div class="eco-node fmlg">
+        <div class="eco-label">Pipeline</div>
+        <div class="eco-name">FMLG Family Law</div>
+      </div>
+      <div class="eco-node ai-draft">
+        <div class="eco-label">Technology</div>
+        <div class="eco-name">AI Drafting Engine</div>
+      </div>
+    </div>
+    <div class="eco-text fade-in fade-in-delay-1">
+      <div class="section-eyebrow">The Ecosystem</div>
+      <h3>An <em>integrated</em> real estate services network</h3>
+      <p>Real Estate Master isn't a standalone tech platform. It's the front end of a fully integrated ecosystem — backed by an operating brokerage, a title and law firm, and a family law practice. Every service feeds the next. Every touchpoint creates a pathway.</p>
+      <div>
+        <span class="eco-pill green">Sobi Realty — Listings & Sales</span>
+        <span class="eco-pill green">Sobi Law & Title — Closings</span>
+        <span class="eco-pill violet">FMLG Pipeline — Divorce Cases</span>
+        <span class="eco-pill violet">AI Drafting — Instant Documents</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GATE TIMELINE -->
+<section class="timeline" id="timeline">
+  <div class="section-eyebrow fade-in">Critical Path</div>
+  <h2 class="section-title fade-in fade-in-delay-1">Five gates to <em>full scale.</em></h2>
+  <p class="section-sub fade-in fade-in-delay-2">Tiers 0–6 launch at Gate 0 with no regulatory dependency. Court services follow as legal framework is established.</p>
+
+  <div class="timeline-track fade-in">
+    <div class="gate-item">
+      <div class="gate-dot">G0</div>
+      <div class="gate-label">Launch Now</div>
+      <div class="gate-name">Tiers 0–6 Live</div>
+      <div class="gate-time">Month 1–2</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-dot">G1</div>
+      <div class="gate-label">Legal</div>
+      <div class="gate-name">Immunity Research Complete</div>
+      <div class="gate-time">Month 1–2</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-dot">G2</div>
+      <div class="gate-label">Authority</div>
+      <div class="gate-name">Judge Champion + Order</div>
+      <div class="gate-time">Month 2–4</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-dot">G3</div>
+      <div class="gate-label">Technology</div>
+      <div class="gate-name">Full Platform MVP</div>
+      <div class="gate-time">Month 3–4</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-dot">G4</div>
+      <div class="gate-label">Pilot</div>
+      <div class="gate-name">First 10–20 Cases</div>
+      <div class="gate-time">Month 4–6</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-dot">G5</div>
+      <div class="gate-label">Scale</div>
+      <div class="gate-name">Expansion Decision</div>
+      <div class="gate-time">Month 6+</div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners" id="partners">
+  <div class="section-eyebrow fade-in">Founding Partners</div>
+  <h2 class="section-title fade-in fade-in-delay-1">Three equal partners.<br><em>One complete team.</em></h2>
+
+  <div class="partners-grid">
+    <div class="partner-card fade-in">
+      <div class="partner-initial">LW</div>
+      <div class="partner-name">Leisa Wintz</div>
+      <div class="partner-role">Decision Authority · Strategy</div>
+      <div class="partner-desc">Brings the FMLG client pipeline, court relationships, appellate research oversight, and final decision authority across all platform gates.</div>
+      <div class="partner-tags">
+        <span class="partner-tag">FMLG</span>
+        <span class="partner-tag">Strategy</span>
+        <span class="partner-tag">Court</span>
+      </div>
+    </div>
+    <div class="partner-card fade-in fade-in-delay-1">
+      <div class="partner-initial">NH</div>
+      <div class="partner-name">Nazarena Hauser</div>
+      <div class="partner-role">Legal Lead · Court Integration</div>
+      <div class="partner-desc">Leads judge champion identification, local administrative order drafting, compliance framework, and Gate 2 execution for court-integrated services.</div>
+      <div class="partner-tags">
+        <span class="partner-tag">Legal</span>
+        <span class="partner-tag">Compliance</span>
+        <span class="partner-tag">Judiciary</span>
+      </div>
+    </div>
+    <div class="partner-card fade-in fade-in-delay-2">
+      <div class="partner-initial">CS</div>
+      <div class="partner-name">Cheryl-Dene Spring</div>
+      <div class="partner-role">Real Estate Lead · Operations</div>
+      <div class="partner-desc">Brings Sobi Realty (brokerage), Sobi Law & Title (closings & title insurance), the broker reviewer network, and all real estate licensing infrastructure.</div>
+      <div class="partner-tags">
+        <span class="partner-tag">Sobi Realty</span>
+        <span class="partner-tag">Sobi Law & Title</span>
+        <span class="partner-tag">Broker Network</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band fade-in">
+  <div>
+    <h2>Ready to launch<br>Real Estate Master?</h2>
+    <p>Tiers 0–6 require no court approval. Revenue starts Month 1.</p>
+  </div>
+  <a href="#services" class="btn-dark">Review the Full Plan →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo-top">Real Estate</div>
+    <div class="logo-bot">Master</div>
+    <div class="tagline">Where Property Meets Resolution · Florida · Est. 2026</div>
+  </div>
+  <div class="footer-right">
+    <p class="partners-list">Leisa Wintz · Nazarena Hauser · Cheryl-Dene Spring</p>
+    <p>Confidential — Partners Only · May 2026</p>
+    <p style="margin-top:0.5rem; color:rgba(255,255,255,0.15); font-size:0.65rem;">Real Estate Master LLC · All rights reserved</p>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
