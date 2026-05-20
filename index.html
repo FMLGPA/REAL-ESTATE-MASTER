@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Estate Master — Where Property Meets Resolution</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Barlow+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:     #00C47A;
+  --green-lt:  #00E68A;
+  --green-dk:  #00A366;
+  --lime:      #AAFF57;
+  --lime-lt:   #C8FF8A;
+  --lime-dk:   #88DD33;
+  --black:     #0A0A0A;
+  --ink:       #111111;
+  --charcoal:  #1C1C1C;
+  --gray:      #2A2A2A;
+  --mid:       #555555;
+  --mist:      #888888;
+  --light:     #CCCCCC;
+  --white:     #FFFFFF;
+  --cream:     #F5F5F2;
+  --card-bg:   #151515;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(10,10,10,0.96);
+  border-bottom: 1px solid rgba(170,255,87,0.15);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.nav-logo-text .line2 { color: var(--lime); font-size: 24px; }
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 600;
+  color: var(--light);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--lime); }
+.nav-btn {
+  background: var(--lime);
+  color: var(--black) !important;
+  padding: 9px 22px;
+  border-radius: 2px;
+  font-weight: 700 !important;
+  white-space: nowrap;
+}
+.nav-btn:hover { background: var(--lime-lt) !important; color: var(--black) !important; }
+.nav-login { color: var(--green) !important; }
+
+/* ── HAMBURGER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px;
+  background: none; border: none;
+  cursor: pointer; padding: 6px;
+  z-index: 300;
+}
+.nav-hamburger span {
+  display: block; width: 100%; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE MENU ── */
+.mobile-menu {
+  display: none;
+  position: fixed; top: 68px; left: 0; right: 0;
+  background: rgba(10,10,10,0.98);
+  border-bottom: 1px solid rgba(170,255,87,0.2);
+  backdrop-filter: blur(12px);
+  z-index: 190;
+  padding: 24px 24px 32px;
+  flex-direction: column; gap: 4px;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.mobile-menu.open {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-menu a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--light);
+  text-decoration: none;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--lime); }
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu .mobile-cta {
+  margin-top: 16px;
+  background: var(--lime);
+  color: var(--black) !important;
+  text-align: center;
+  padding: 16px;
+  border-radius: 2px;
+  border-bottom: none !important;
+  font-size: 18px;
+}
+.mobile-menu .mobile-cta:hover { background: var(--lime-lt) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(170,255,87,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(170,255,87,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.hero-bg-glow {
+  position: absolute; top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,196,122,0.10) 0%, rgba(170,255,87,0.06) 40%, transparent 70%);
+  pointer-events: none;
+}
+.hero-bg-glow-lime {
+  position: absolute; bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(170,255,87,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.5s 0.1s ease forwards;
+}
+.hero-eyebrow::before {
+  content: ''; width: 28px; height: 2px; background: var(--lime);
+}
+.hero-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(52px, 8vw, 110px);
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--white);
+  max-width: 900px;
+  margin-bottom: 32px;
+  opacity: 0; animation: fadeUp 0.6s 0.25s ease forwards;
+}
+.hero-headline .green { color: var(--green); }
+.hero-headline .lime { color: var(--lime); }
+.hero-headline .outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+.hero-sub {
+  font-size: 17px; font-weight: 300;
+  color: var(--light);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 44px;
+  opacity: 0; animation: fadeUp 0.6s 0.4s ease forwards;
+}
+.hero-sub strong { color: var(--white); font-weight: 600; }
+.hero-actions {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s 0.55s ease forwards;
+}
+.btn-primary {
+  background: var(--lime);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 16px 36px;
+  border: none; border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--lime-lt); transform: translateY(-1px); }
+.btn-secondary {
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 15px 32px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--lime); color: var(--lime); }
+
+.hero-stat-row {
+  display: flex; gap: 48px; flex-wrap: wrap;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(170,255,87,0.12);
+  opacity: 0; animation: fadeUp 0.6s 0.7s ease forwards;
+}
+.hero-stat {
+  min-width: 120px;
+}
+.hero-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 36px; font-weight: 900;
+  color: var(--lime);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--mist);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── TAGLINE BAND ── */
+.band {
+  background: var(--lime);
+  padding: 18px 48px;
+  display: flex; align-items: center; justify-content: center; gap: 40px;
+  overflow: hidden; flex-wrap: wrap;
+}
+.band-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--black);
+  white-space: nowrap;
+}
+.band-dot { width: 5px; height: 5px; background: var(--black); border-radius: 50%; opacity: 0.4; flex-shrink: 0; }
+
+/* ── SERVICES SECTION ── */
+.services {
+  padding: 100px 48px;
+  background: var(--black);
+}
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before { content: ''; width: 24px; height: 2px; background: var(--lime); }
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 60px;
+}
+.section-title span { color: var(--green); }
+.section-title span.lime { color: var(--lime); }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.service-card {
+  background: var(--card-bg);
+  padding: 40px 32px;
+  position: relative;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  min-height: 400px;
+  border-top: 3px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.service-card:hover {
+  background: #1e1e1e;
+  border-top-color: var(--lime);
+}
+.service-card.featured {
+  background: var(--green);
+  border-top-color: var(--lime);
+}
+.service-card.featured:hover { background: var(--green-dk); }
+
+.card-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--mist);
+  margin-bottom: 32px;
+}
+.service-card.featured .card-num { color: rgba(0,0,0,0.5); }
+
+.card-icon {
+  width: 48px; height: 48px;
+  background: rgba(170,255,87,0.1);
+  border: 1px solid rgba(170,255,87,0.25);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  font-size: 22px;
+}
+.service-card.featured .card-icon {
+  background: rgba(0,0,0,0.15);
+  border-color: rgba(0,0,0,0.2);
+}
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 26px; font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.service-card.featured .card-title { color: var(--black); }
+.card-subtitle {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 20px;
+}
+.service-card.featured .card-subtitle { color: rgba(0,0,0,0.65); }
+.card-desc {
+  font-size: 14px; font-weight: 400;
+  color: var(--mist);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 32px;
+}
+.service-card.featured .card-desc { color: rgba(0,0,0,0.65); }
+.card-meta {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: 28px;
+}
+.card-meta-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500;
+  color: var(--light);
+}
+.service-card.featured .card-meta-item { color: rgba(0,0,0,0.7); }
+.card-meta-item::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--lime);
+  flex-shrink: 0;
+}
+.service-card.featured .card-meta-item::before { background: rgba(0,0,0,0.4); }
+.card-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lime);
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+.service-card:hover .card-cta { gap: 14px; }
+.service-card.featured .card-cta { color: var(--black); }
+.card-cta::after { content: '→'; font-size: 16px; }
+
+/* ── HOW IT WORKS ── */
+.how {
+  padding: 100px 48px;
+  background: var(--charcoal);
+}
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 60px;
+  position: relative;
+}
+.steps-row::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--lime), var(--green), var(--lime), transparent);
+}
+.step {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+.step-num {
+  width: 56px; height: 56px;
+  background: var(--black);
+  border: 2px solid var(--lime);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 900;
+  color: var(--lime);
+  margin-bottom: 24px;
+  position: relative; z-index: 1;
+  box-shadow: 0 0 16px rgba(170,255,87,0.15);
+}
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.step-desc {
+  font-size: 13px; font-weight: 400;
+  color: var(--mist);
+  line-height: 1.6;
+}
+
+/* ── SIGN UP SECTION ── */
+.signup {
+  padding: 100px 48px;
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.signup-left .section-title { margin-bottom: 20px; }
+.signup-left p {
+  font-size: 16px; font-weight: 400;
+  color: var(--mist);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.trust-items { display: flex; flex-direction: column; gap: 14px; }
+.trust-item {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.trust-check {
+  width: 22px; height: 22px; flex-shrink: 0;
+  background: rgba(170,255,87,0.1);
+  border: 1px solid var(--lime);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  color: var(--lime);
+  margin-top: 1px;
+}
+.trust-text {
+  font-size: 14px; font-weight: 400;
+  color: var(--light);
+  line-height: 1.5;
+}
+
+/* ── FORM CARD ── */
+.form-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(170,255,87,0.2);
+  border-radius: 4px;
+  padding: 48px 44px;
+}
+.form-card-header {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px; font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.form-card-sub {
+  font-size: 13px; color: var(--mist);
+  margin-bottom: 32px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mist);
+}
+.form-group input,
+.form-group select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 2px;
+  padding: 12px 14px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-group input::placeholder { color: var(--mid); }
+.form-group input:focus,
+.form-group select:focus { border-color: var(--lime); }
+.form-group select option { background: #222; color: var(--white); }
+.form-full { grid-column: 1 / -1; }
+
+.service-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.service-opt {
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.service-opt:hover { border-color: var(--lime); background: rgba(170,255,87,0.05); }
+.service-opt.selected { border-color: var(--lime); background: rgba(170,255,87,0.08); }
+.service-opt-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--white);
+  display: block;
+}
+.service-opt-price {
+  font-size: 11px; color: var(--lime); margin-top: 3px;
+  font-weight: 500;
+}
+.form-submit {
+  width: 100%;
+  background: var(--lime);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 900;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 16px;
+  border: none; border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.form-submit:hover { background: var(--lime-lt); }
+.form-terms {
+  font-size: 11px; color: var(--mid);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.form-terms a { color: var(--lime); text-decoration: none; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(170,255,87,0.12);
+  padding: 60px 48px 40px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.footer-brand-name span { color: var(--lime); }
+.footer-tagline {
+  font-size: 12px; color: var(--mist);
+  letter-spacing: 0.06em; margin-bottom: 18px;
+}
+.footer-desc { font-size: 13px; color: var(--mid); line-height: 1.6; }
+.footer-col-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13px; color: var(--mist);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-copy { font-size: 12px; color: var(--mid); }
+.footer-badge {
+  background: rgba(170,255,87,0.07);
+  border: 1px solid rgba(170,255,87,0.2);
+  border-radius: 2px;
+  padding: 6px 14px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lime);
+}
+
+/* ── LIME ACCENT STRIPE ── */
+.lime-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--lime), var(--green));
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--charcoal);
+  border: 1px solid rgba(170,255,87,0.25);
+  border-top: 3px solid var(--lime);
+  border-radius: 4px;
+  padding: 48px;
+  max-width: 520px; width: 100%;
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; color: var(--mist);
+  font-size: 24px; cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--lime); }
+.modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.modal-service {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 28px;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — TABLET (≤ 1024px)
+   ════════════════════════════════════ */
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { gap: 22px; }
+  .hero { padding: 100px 28px 60px; }
+  .services { padding: 80px 28px; }
+  .service-grid { grid-template-columns: repeat(2, 1fr); }
+  .service-card { min-height: auto; }
+  .how { padding: 80px 28px; }
+  .steps-row { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .steps-row::before { display: none; }
+  .signup { padding: 80px 28px; gap: 48px; }
+  footer { padding: 48px 28px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 768px)
+   ════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+    height: 60px;
+  }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero {
+    padding: 90px 20px 60px;
+    min-height: auto;
+    padding-bottom: 60px;
+  }
+  .hero-headline {
+    font-size: clamp(44px, 14vw, 72px);
+    max-width: 100%;
+  }
+  .hero-sub {
+    font-size: 15px;
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-primary, .btn-secondary {
+    text-align: center;
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+  .hero-stat-row {
+    gap: 28px;
+    margin-top: 48px;
+    padding-top: 28px;
+  }
+  .hero-stat-num { font-size: 28px; }
+  .hero-stat-label { font-size: 11px; }
+
+  .band {
+    padding: 16px 20px;
+    gap: 20px;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .services { padding: 64px 20px; }
+  .section-title { margin-bottom: 36px; }
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .service-card {
+    min-height: auto;
+    padding: 32px 24px;
+  }
+
+  .how { padding: 64px 20px; }
+  .steps-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 40px;
+  }
+  .steps-row::before { display: none; }
+  .step {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    gap: 20px;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 44px; height: 44px; flex-shrink: 0;
+    font-size: 16px; margin-bottom: 0;
+  }
+  .step-body { flex: 1; }
+  .step-title { margin-bottom: 6px; }
+
+  .signup {
+    padding: 64px 20px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .form-card {
+    padding: 32px 24px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .service-selector {
+    grid-template-columns: 1fr;
+  }
+
+  footer { padding: 48px 20px 32px; }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .modal { padding: 36px 24px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤ 400px)
+   ════════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-headline { font-size: clamp(40px, 15vw, 56px); }
+  .hero-eyebrow { font-size: 10px; }
+  .hero-stat-row { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LIME ACCENT STRIPE -->
+<div class="lime-stripe"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-text">
+      Real Estate<br><span class="line2">Master</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#about">For Attorneys</a></li>
+    <li><a href="#" class="nav-login">Log In</a></li>
+    <li><a href="#signup" class="nav-btn">Create Account</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#how" onclick="closeMenu()">How It Works</a>
+  <a href="#about" onclick="closeMenu()">For Attorneys</a>
+  <a href="#" onclick="closeMenu()">Log In</a>
+  <a href="#signup" class="mobile-cta" onclick="closeMenu()">Create Account →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow-lime"></div>
+
+  <div class="hero-eyebrow">Florida's Court-Integrated Real Estate Neutral Platform</div>
+
+  <h1 class="hero-headline">
+    Where<br>
+    <span class="green">Property</span><br>
+    <span class="outline">Meets</span><br>
+    Resolution
+  </h1>
+
+  <p class="hero-sub">
+    <strong>Real Estate Master</strong> delivers independent, court-recognized property analysis for attorneys in family law, probate, and civil litigation — faster, cheaper, and more credible than dueling experts.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#signup" class="btn-primary">Get Started</a>
+    <a href="#services" class="btn-secondary">View Services</a>
+  </div>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">48,000+</div>
+      <div class="hero-stat-label">FL Cases With Property / Year</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7–10</div>
+      <div class="hero-stat-label">Day Delivery — Tier 1</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">35%</div>
+      <div class="hero-stat-label">Lower Cost vs. Dual Experts</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1</div>
+      <div class="hero-stat-label">Neutral Report. Court-Recognized.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">Market Analysis</span>
+  <span class="band-dot"></span>
+  <span class="band-text">Professional Opinion of Value</span>
+  <span class="band-dot"></span>
+  <span class="band-text">Neutral Master Report</span>
+  <span class="band-dot"></span>
+  <span class="band-text">Special Master Appointment</span>
+  <span class="band-dot"></span>
+  <span class="band-text">Where Property Meets Resolution</span>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">Our Services</div>
+  <h2 class="section-title">Choose Your <span>Service Level</span></h2>
+
+  <div class="service-grid">
+
+    <div class="service-card" onclick="openModal('market-analysis')">
+      <div class="card-num">01 / 04</div>
+      <div class="card-icon">📊</div>
+      <div class="card-title">Market Analysis</div>
+      <div class="card-subtitle">Instant CMA · 7–10 Days</div>
+      <p class="card-desc">A professional comparable market analysis of the subject property. Attorney-ready format. Automated data pull from MLS and public records. Ideal for early-stage negotiation and mediation prep.</p>
+      <div class="card-meta">
+        <div class="card-meta-item">5–10 page report</div>
+        <div class="card-meta-item">MLS + county data</div>
+        <div class="card-meta-item">$500 – $800</div>
+      </div>
+      <a href="#" class="card-cta">Order Now</a>
+    </div>
+
+    <div class="service-card" onclick="openModal('opinion-of-value')">
+      <div class="card-num">02 / 04</div>
+      <div class="card-icon">📋</div>
+      <div class="card-title">Professional Opinion of Value</div>
+      <div class="card-subtitle">Enhanced BPO · 14–21 Days</div>
+      <p class="card-desc">A licensed broker's written opinion of value with enhanced comparables, property photos, and inspection-level review. Suitable for contested valuations and pre-trial disclosure packages.</p>
+      <div class="card-meta">
+        <div class="card-meta-item">15–25 page report</div>
+        <div class="card-meta-item">Photos + inspection</div>
+        <div class="card-meta-item">$1,500 – $2,500</div>
+      </div>
+      <a href="#" class="card-cta">Order Now</a>
+    </div>
+
+    <div class="service-card featured" onclick="openModal('master-report')">
+      <div class="card-num">03 / 04</div>
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">Neutral Master Report</div>
+      <div class="card-subtitle">Court-Ready · 21–30 Days</div>
+      <p class="card-desc">A full court-ready valuation report with site visit, detailed analysis, findings of fact, and disposition recommendations. Designed for filing with the court and judicial adoption.</p>
+      <div class="card-meta">
+        <div class="card-meta-item">30–50 page court report</div>
+        <div class="card-meta-item">Site visit + disposition plan</div>
+        <div class="card-meta-item">$3,500 – $6,000</div>
+      </div>
+      <a href="#" class="card-cta">Order Now</a>
+    </div>
+
+    <div class="service-card" onclick="openModal('srem')">
+      <div class="card-num">04 / 04</div>
+      <div class="card-icon">🏛️</div>
+      <div class="card-title">Special Master Appointment</div>
+      <div class="card-subtitle">S-REM · Court Authority</div>
+      <p class="card-desc">Request a court-appointed Special Real Estate Master for your case. Full judicial authority. Includes appointment order language, conflict screening, and assignment of a qualified neutral from our network.</p>
+      <div class="card-meta">
+        <div class="card-meta-item">Court appointment order</div>
+        <div class="card-meta-item">Fla. R. Civ. P. 1.490 authority</div>
+        <div class="card-meta-item">Includes Tier 2 or Tier 3</div>
+      </div>
+      <a href="#" class="card-cta">Learn More</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How It <span>Works</span></h2>
+
+  <div class="steps-row">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Create Account</div>
+        <p class="step-desc">Attorney or firm registers. Verified and approved within 24 hours.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Select Service</div>
+        <p class="step-desc">Choose the service tier that matches your case needs and timeline.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Complete Intake</div>
+        <p class="step-desc">Fill out the property intake form and upload any relevant case documents.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Neutral Assigned</div>
+        <p class="step-desc">A qualified neutral from our broker network is conflict-checked and assigned.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Report Delivered</div>
+        <p class="step-desc">Completed report filed with the court and served on all parties electronically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGN UP -->
+<section class="signup" id="signup">
+  <div class="signup-left">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">Create Your <span class="lime">Account</span></h2>
+    <p>Join Florida's first court-integrated real estate neutral platform. Built for family law, probate, and civil litigation attorneys who need faster, cheaper, and more credible property analysis.</p>
+    <div class="trust-items">
+      <div class="trust-item">
+        <div class="trust-check">✓</div>
+        <div class="trust-text">All neutrals are Florida-licensed brokers or state-certified appraisers with 5+ years experience</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-check">✓</div>
+        <div class="trust-text">Every report is QC-reviewed before delivery — guaranteed on-time or refunded</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-check">✓</div>
+        <div class="trust-text">Court-appointment language included — ready for judicial adoption under Fla. R. Civ. P. 1.490</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-check">✓</div>
+        <div class="trust-text">One neutral fee replaces two adversarial expert costs — save 40–60% per case</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signup-right">
+    <div class="form-card">
+      <div class="form-card-header">Create Your Account</div>
+      <div class="form-card-sub">Start with the service your case needs. You can order instantly after signup.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-full">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@lawfirm.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-full">
+          <label>Florida Bar Number</label>
+          <input type="text" placeholder="123456">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-full">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px; margin-top:20px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);margin-bottom:12px;">Select Your First Service</div>
+        <div class="service-selector">
+          <div class="service-opt selected" onclick="selectService(this)">
+            <span class="service-opt-label">Market Analysis</span>
+            <div class="service-opt-price">$500–$800 · 7–10 days</div>
+          </div>
+          <div class="service-opt" onclick="selectService(this)">
+            <span class="service-opt-label">Opinion of Value</span>
+            <div class="service-opt-price">$1,500–$2,500 · 14–21 days</div>
+          </div>
+          <div class="service-opt" onclick="selectService(this)">
+            <span class="service-opt-label">Master Report</span>
+            <div class="service-opt-price">$3,500–$6,000 · 21–30 days</div>
+          </div>
+          <div class="service-opt" onclick="selectService(this)">
+            <span class="service-opt-label">S-REM Appointment</span>
+            <div class="service-opt-price">Court authority · All tiers</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="form-submit">Create Account & Continue →</button>
+      <div class="form-terms">
+        By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.<br>
+        Already have an account? <a href="#">Log in here.</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="about">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Real Estate <span>Master</span></div>
+      <div class="footer-tagline">WHERE PROPERTY MEETS RESOLUTION</div>
+      <div class="footer-desc">Florida's first court-integrated real estate neutral and valuation platform. Built for family law, probate, and civil litigation. Statewide expansion in progress.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <a href="#">Market Analysis (CMA)</a>
+      <a href="#">Opinion of Value (BPO)</a>
+      <a href="#">Neutral Master Report</a>
+      <a href="#">S-REM Appointment</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">For Attorneys</div>
+      <a href="#">How It Works</a>
+      <a href="#">Sample Reports</a>
+      <a href="#">Pricing</a>
+      <a href="#">CLE Resources</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="#">About</a>
+      <a href="#">Neutral Network</a>
+      <a href="#">Join as Neutral</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Real Estate Master LLC. All rights reserved. Confidential — Pre-Launch.</div>
+    <div class="footer-badge">Florida-Based · Attorney Platform · Pre-Launch R&D</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">×</button>
+    <div class="modal-title" id="modal-title">Service Details</div>
+    <div class="modal-service" id="modal-service"></div>
+    <div id="modal-body" style="font-size:14px;color:var(--mist);line-height:1.7;margin-bottom:28px;"></div>
+    <a href="#signup" class="btn-primary" onclick="document.getElementById('modal').classList.remove('open')" style="display:inline-block;">Get Started →</a>
+  </div>
+</div>
+
+<script>
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── Service selector ── */
+function selectService(el) {
+  document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* ── Modal ── */
+const modalData = {
+  'market-analysis': {
+    title: 'Market Analysis',
+    service: '01 — Instant CMA · $500–$800 · 7–10 Business Days',
+    body: `A Comparative Market Analysis (CMA) is the standard tool a real estate broker uses to determine fair market value based on recently sold comparable properties. Real Estate Master automates the data pull from MLS and county records, assigns a qualified neutral broker to review and certify the analysis, and delivers a clean attorney-ready PDF report.<br><br>Best for: Early mediation prep, initial negotiation, quick ballpark value for settlement discussions.`
+  },
+  'opinion-of-value': {
+    title: 'Professional Opinion of Value',
+    service: '02 — Enhanced BPO · $1,500–$2,500 · 14–21 Business Days',
+    body: `A Broker Price Opinion (BPO) is a more detailed, documented valuation that includes property photos, a physical inspection review, enhanced comparable analysis, and a written narrative opinion of value signed by a licensed broker. Suitable for contested valuations, discovery packages, and pre-trial disclosure.<br><br>Best for: Contested equitable distribution, probate property disputes, cases requiring documented broker opinion.`
+  },
+  'master-report': {
+    title: 'Neutral Master Report',
+    service: '03 — Court-Ready Report · $3,500–$6,000 · 21–30 Business Days',
+    body: `The Neutral Master Report is a full court-ready valuation document with site visit, detailed comparable analysis, condition assessment, disposition strategy recommendations, and proposed findings of fact. Formatted for filing with the court and structured for judicial adoption under Florida procedural rules.<br><br>Best for: Evidentiary hearings, final hearings on equitable distribution, partition matters, contested probate property.`
+  },
+  'srem': {
+    title: 'Special Real Estate Master',
+    service: '04 — S-REM Court Appointment · Includes Tier 2 or Tier 3',
+    body: `The S-REM appointment gives the neutral formal court authority under Fla. R. Civ. P. 1.490, Family Law Rule 12.492, or Probate Rule 5.697. Real Estate Master handles the appointment order language, conflict screening, and assignment of a qualified neutral. The court retains all final decision-making authority.<br><br>This is the full PropertyMaster model — a court-appointed neutral with recognized authority, delivering a Tier 2 or Tier 3 report with the credibility of a judicial appointment behind it.<br><br>Best for: Highly contested property matters, cases where neutrality is disputed, judges who want formal appointment authority.`
+  }
+};
+
+function openModal(key) {
+  const d = modalData[key];
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-service').textContent = d.service;
+  document.getElementById('modal-body').innerHTML = d.body;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+</script>
+</body>
+</html>
